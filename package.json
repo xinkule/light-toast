@@ -10,6 +10,7 @@
     "component",
     "mobile"
   ],
+  "homepage": "https://xinkule.github.io/light-toast/",
   "repository": {
     "type": "git",
     "url": "https://github.com/xinkule/light-toast.git"
@@ -17,8 +18,10 @@
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
-    "start": "webpack-dev-server",
-    "compile": "NODE_ENV=production babel src --out-dir lib"
+    "start": "NODE_ENV=development webpack-dev-server",
+    "build": "NODE_ENV=production webpack --config webpack.config.prod.js",
+    "prepublishOnly": "NODE_ENV=production babel src --out-dir lib",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "prop-types": "^15.6.2",
@@ -35,13 +38,21 @@
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react-app": "^3.1.2",
+    "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^1.0.0",
     "eslint": "^5.2.0",
     "eslint-plugin-react": "^7.10.0",
+    "gh-pages": "^1.2.0",
     "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.1",
+    "optimize-css-assets-webpack-plugin": "^5.0.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
     "react-hot-loader": "^4.3.3",
     "style-loader": "^0.21.0",
+    "uglifyjs-webpack-plugin": "^1.2.7",
     "webpack": "^4.16.2",
+    "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.5"
   }

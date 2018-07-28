@@ -2,8 +2,6 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
-process.env.NODE_ENV = 'development';
-
 module.exports = {
   mode: 'development',
   entry: './example/src/index.js',
@@ -41,7 +39,19 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
-      template: path.resolve(__dirname, 'example/index.html')
+      template: path.resolve(__dirname, 'example/index.html'),
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true
+      }
     }),
     new webpack.HotModuleReplacementPlugin()
   ],
