@@ -17,6 +17,7 @@ body {
   box-sizing: border-box;
   border: 2px solid palevioletred;
   border-radius: 3px;
+  cursor: pointer;
 }
 
 .button + .button {

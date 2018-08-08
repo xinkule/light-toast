@@ -6,6 +6,8 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin/lib');
 
 module.exports = {
   mode: 'production',
@@ -44,29 +46,39 @@ module.exports = {
   },
   devtool: false,
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    plugins: [
+      new TsconfigPathsPlugin({
+        configFile: path.resolve(__dirname, 'tsconfig.dev.json')
+      })
+    ]
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-        options: {
-          compact: true
-        }
-      },
-      {
-        test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
+        oneOf: [
           {
-            loader: 'css-loader',
+            test: /\.(js|ts|tsx)$/,
+            exclude: /node_modules/,
+            loader: 'ts-loader',
             options: {
-              importLoaders: 1,
-              minimize: true,
-              sourceMap: false
+              transpileOnly: true,
+              configFile: path.resolve(__dirname, 'tsconfig.dev.json')
             }
+          },
+          {
+            test: /\.css$/,
+            use: [
+              MiniCssExtractPlugin.loader,
+              {
+                loader: 'css-loader',
+                options: {
+                  importLoaders: 1,
+                  minimize: true,
+                  sourceMap: false
+                }
+              }
+            ]
           }
         ]
       }
@@ -93,10 +105,14 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash:8].css'
     }),
+    new ForkTsCheckerWebpackPlugin({
+      async: false,
+      tsconfig: path.resolve(__dirname, 'tsconfig.dev.json'),
+      tslint: path.resolve(__dirname, 'tslint.json')
+    }),
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
       reportFilename: 'webpack-bundle-report.html'
     })
-  ],
-  performance: false
+  ]
 };

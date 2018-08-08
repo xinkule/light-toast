@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { hot } from 'react-hot-loader';
 import Toast from '../../src';
 import './index.css';
 
-class App extends Component {
+class App extends React.Component {
   handleClick = type => {
     Toast[type](type);
     if (type === 'loading') {

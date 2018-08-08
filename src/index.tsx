@@ -1,5 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { Animation, Option, Type } from './PropsType';
 import Toast from './Toast';
 
 (function insertStyle() {
@@ -70,12 +71,12 @@ import Toast from './Toast';
   document.head.appendChild(styleSheet);
 })();
 
-let toastInstance = null;
+let toastInstance: Toast | null = null;
 
-function notice(type, { content, duration, onClose }) {
+function notice(type: Type, { content, duration, onClose }: Option) {
   const container = document.createElement('div');
   document.body.appendChild(container);
-  const component = ReactDOM.createPortal(
+  const component = (
     <Toast
       type={type}
       content={content}
@@ -90,28 +91,27 @@ function notice(type, { content, duration, onClose }) {
       ref={ref => {
         toastInstance = ref;
       }}
-    />,
-    container
+    />
   );
   ReactDOM.render(component, container);
 }
 
 export default {
-  info(content, duration, onClose) {
-    notice('info', { content, duration, onClose });
+  info(content: string, duration?: number, onClose?: () => void) {
+    notice(Type.Info, { content, duration, onClose });
   },
-  success(content, duration, onClose) {
-    notice('success', { content, duration, onClose });
+  success(content: string, duration?: number, onClose?: () => void) {
+    notice(Type.Success, { content, duration, onClose });
   },
-  fail(content, duration, onClose) {
-    notice('fail', { content, duration, onClose });
+  fail(content: string, duration?: number, onClose?: () => void) {
+    notice(Type.Fail, { content, duration, onClose });
   },
-  loading(content, onClose) {
-    notice('loading', { content, onClose });
+  loading(content: string, onClose?: () => void) {
+    notice(Type.Loading, { content, onClose });
   },
   hide() {
     if (toastInstance) {
-      toastInstance.fade('out', toastInstance.props.onClose);
+      toastInstance.fade(Animation.Out, toastInstance.props.onClose);
       toastInstance = null;
     }
   }

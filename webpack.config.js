@@ -1,6 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin/lib');
 
 module.exports = {
   mode: 'development',
@@ -18,21 +20,30 @@ module.exports = {
     port: 3001
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    plugins: [
+      new TsconfigPathsPlugin({
+        configFile: path.resolve(__dirname, 'tsconfig.dev.json')
+      })
+    ]
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-        options: {
-          cacheDirectory: true
-        }
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        oneOf: [
+          {
+            test: /\.(js|ts|tsx)$/,
+            exclude: /node_modules/,
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true
+            }
+          },
+          {
+            test: /\.css$/,
+            use: ['style-loader', 'css-loader']
+          }
+        ]
       }
     ]
   },
@@ -41,7 +52,13 @@ module.exports = {
       inject: true,
       template: path.resolve(__dirname, 'example/index.html')
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new ForkTsCheckerWebpackPlugin({
+      async: false,
+      watch: path.resolve(__dirname, 'src'),
+      tsconfig: path.resolve(__dirname, 'tsconfig.dev.json'),
+      tslint: path.resolve(__dirname, 'tslint.json')
+    })
   ],
   performance: false
 };

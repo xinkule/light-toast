@@ -1,8 +1,0 @@
-example
-src
-.babelrc
-.eslintrc.js
-.gitignore
-.prettierignore
-webpack.config.js
-webpack.config.prod.js

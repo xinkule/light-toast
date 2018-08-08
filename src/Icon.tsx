@@ -1,21 +1,7 @@
-import React from 'react';
+import * as React from 'react';
+import { Type } from './PropsType';
 
 const iconTypes = {
-  success: (
-    <svg viewBox="0 0 72 72">
-      <g fill="none" fillRule="evenodd">
-        <path
-          d="M36 72c19.882 0 36-16.118 36-36S55.882 0 36 0 0 16.118 0 36s16.118 36 36 36zm0-2c18.778 0 34-15.222 34-34S54.778 2 36 2 2 17.222 2 36s15.222 34 34 34z"
-          fill="#FFF"
-        />
-        <path
-          stroke="#FFF"
-          strokeWidth="2"
-          d="M19 34.54l11.545 11.923L52.815 24"
-        />
-      </g>
-    </svg>
-  ),
   fail: (
     <svg viewBox="0 0 72 72">
       <g fill="none" fillRule="evenodd">
@@ -46,9 +32,24 @@ const iconTypes = {
         d="M56.587 29.766c.37-7.438-1.658-14.7-6.393-19.552"
       />
     </svg>
+  ),
+  success: (
+    <svg viewBox="0 0 72 72">
+      <g fill="none" fillRule="evenodd">
+        <path
+          d="M36 72c19.882 0 36-16.118 36-36S55.882 0 36 0 0 16.118 0 36s16.118 36 36 36zm0-2c18.778 0 34-15.222 34-34S54.778 2 36 2 2 17.222 2 36s15.222 34 34 34z"
+          fill="#FFF"
+        />
+        <path
+          stroke="#FFF"
+          strokeWidth="2"
+          d="M19 34.54l11.545 11.923L52.815 24"
+        />
+      </g>
+    </svg>
   )
 };
 
-export default function Icon({ type }) {
-  return iconTypes[type];
-}
+const Icon: React.SFC<{ type: Type }> = ({ type }) => iconTypes[type];
+
+export default Icon;
