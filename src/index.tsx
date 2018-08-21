@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { Animation, Option, Type } from './PropsType';
 import Toast from './Toast';
 
-(function insertStyle() {
+if (typeof window !== 'undefined') {
   const styleSheet = document.createElement('style');
   styleSheet.type = 'text/css';
   styleSheet.innerHTML = `
@@ -69,7 +69,7 @@ import Toast from './Toast';
       }
     }`;
   document.head.appendChild(styleSheet);
-})();
+}
 
 let toastInstance: Toast | null = null;
 
