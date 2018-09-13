@@ -110,9 +110,6 @@ module.exports = {
       tsconfig: path.resolve(__dirname, 'tsconfig.dev.json'),
       tslint: path.resolve(__dirname, 'tslint.json')
     }),
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'static',
-      reportFilename: 'webpack-bundle-report.html'
-    })
+    new BundleAnalyzerPlugin()
   ]
 };
