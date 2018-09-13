@@ -51,6 +51,12 @@ if (typeof window !== 'undefined') {
     }
 
     .light-toast-loading {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      border: 2px solid #ccc;
+      border-left-color: #108ee9;
+      border-radius: 50%;
       -webkit-animation: loading 1s linear infinite;
       animation: loading 1s linear infinite;
     }
@@ -98,12 +104,21 @@ function notice(type: Type, { content, duration, onClose }: Option) {
 
 export default {
   info(content: string, duration?: number, onClose?: () => void) {
+    if (toastInstance) {
+      toastInstance.fade(Animation.Out, toastInstance.props.onClose);
+    }
     notice(Type.Info, { content, duration, onClose });
   },
   success(content: string, duration?: number, onClose?: () => void) {
+    if (toastInstance) {
+      toastInstance.fade(Animation.Out, toastInstance.props.onClose);
+    }
     notice(Type.Success, { content, duration, onClose });
   },
   fail(content: string, duration?: number, onClose?: () => void) {
+    if (toastInstance) {
+      toastInstance.fade(Animation.Out, toastInstance.props.onClose);
+    }
     notice(Type.Fail, { content, duration, onClose });
   },
   loading(content: string, onClose?: () => void) {
