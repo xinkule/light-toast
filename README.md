@@ -48,3 +48,5 @@ Toast.hide();
 
 If you use `Toast.loading()`, you should call `Toast.hide()` by yourself to close the toast,  
 since this often happens when you make an asynchronous request.
+
+When you are in loading state, you can call `Toast.info()`, `Toast.success()`, `Toast.fail()` directly to hide the loading message. This is useful when you want to hint something after waiting.
