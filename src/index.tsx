@@ -80,45 +80,47 @@ if (typeof window !== 'undefined') {
 let toastInstance: Toast | null = null;
 
 function notice(type: Type, { content, duration, onClose }: Option) {
-  const container = document.createElement('div');
-  document.body.appendChild(container);
-  const component = (
-    <Toast
-      type={type}
-      content={content}
-      duration={duration}
-      onClose={() => {
-        ReactDOM.unmountComponentAtNode(container);
-        document.body.removeChild(container);
-        if (onClose) {
-          onClose();
-        }
-      }}
-      ref={ref => {
-        toastInstance = ref;
-      }}
-    />
-  );
-  ReactDOM.render(component, container);
+  if (toastInstance) {
+    toastInstance.fade(Animation.Out, () => {
+      toastInstance!.props.onClose();
+      render(onClose);
+    });
+  } else {
+    render(onClose);
+  }
+
+  function render(callback?: () => void) {
+    const container = document.createElement('div');
+    document.body.appendChild(container);
+    const component = (
+      <Toast
+        type={type}
+        content={content}
+        duration={duration}
+        onClose={() => {
+          ReactDOM.unmountComponentAtNode(container);
+          document.body.removeChild(container);
+          if (callback) {
+            callback();
+          }
+        }}
+        ref={ref => {
+          toastInstance = ref;
+        }}
+      />
+    );
+    ReactDOM.render(component, container);
+  }
 }
 
 export default {
   info(content: string, duration?: number, onClose?: () => void) {
-    if (toastInstance) {
-      toastInstance.fade(Animation.Out, toastInstance.props.onClose);
-    }
     notice(Type.Info, { content, duration, onClose });
   },
   success(content: string, duration?: number, onClose?: () => void) {
-    if (toastInstance) {
-      toastInstance.fade(Animation.Out, toastInstance.props.onClose);
-    }
     notice(Type.Success, { content, duration, onClose });
   },
   fail(content: string, duration?: number, onClose?: () => void) {
-    if (toastInstance) {
-      toastInstance.fade(Animation.Out, toastInstance.props.onClose);
-    }
     notice(Type.Fail, { content, duration, onClose });
   },
   loading(content: string, onClose?: () => void) {
