@@ -113,7 +113,7 @@ function notice(type: Type, { content, duration, onClose }: Option) {
   }
 }
 
-const toast = {
+export default {
   info(content: string, duration?: number, onClose?: () => void) {
     notice(Type.Info, { content, duration, onClose });
   },
@@ -133,7 +133,3 @@ const toast = {
     }
   }
 };
-
-module.exports = toast;
-
-export default toast;
