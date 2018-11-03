@@ -74,7 +74,7 @@ if (typeof window !== 'undefined') {
         transform: rotate(360deg);
       }
     }`;
-  document.head.appendChild(styleSheet);
+  document.head!.appendChild(styleSheet);
 }
 
 let toastInstance: Toast | null = null;
@@ -131,5 +131,5 @@ export default {
       toastInstance.fade(Animation.Out, toastInstance.props.onClose);
       toastInstance = null;
     }
-  }
+  },
 };

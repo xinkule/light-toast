@@ -1,6 +1,6 @@
 # Light Toast
 
-[![npm version](https://badge.fury.io/js/light-toast.svg)](https://www.npmjs.com/package/light-toast)
+[![npm version](https://img.shields.io/npm/v/light-toast.svg?style=flat-square)](https://www.npmjs.com/package/light-toast)
 
 A light-weight React toast component with extremely easy API. [Online Demo](https://xinkule.github.io/light-toast/)
 
