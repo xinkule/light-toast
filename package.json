@@ -1,6 +1,6 @@
 {
   "name": "light-toast",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "A light-weight react toast component built for mobile web app",
   "author": "Albert Zhong <ccnualbertzhong@gmail.com> (https://github.com/xinkule)",
   "keywords": [

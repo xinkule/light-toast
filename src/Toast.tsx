@@ -8,14 +8,22 @@ export interface Props extends Option {
   onClose: () => void;
 }
 
+interface FadeEvent {
+  type: Animation;
+  callback: () => void;
+}
+
 class Toast extends React.PureComponent<Props, {}> {
   public static defaultProps = {
-    duration: 3000
+    duration: 3000,
   };
 
   private ele: HTMLSpanElement;
+  private isFadingIn = false;
+  private eventStacks: FadeEvent[] = [];
 
   public componentDidMount() {
+    this.isFadingIn = true;
     this.fade(Animation.In, () => {
       if (this.props.type !== Type.Loading) {
         this.startTimer();
@@ -40,9 +48,18 @@ class Toast extends React.PureComponent<Props, {}> {
         raf(tick);
       } else {
         callback();
+        this.isFadingIn = false;
+        if (this.eventStacks.length > 0) {
+          const event = this.eventStacks.pop() as FadeEvent;
+          this.fade(event.type, event.callback);
+        }
       }
     };
-    raf(tick);
+    if (type === Animation.Out && this.isFadingIn) {
+      this.eventStacks.push({ type, callback });
+    } else {
+      raf(tick);
+    }
   }
 
   public render() {
