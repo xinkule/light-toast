@@ -1,0 +1,62 @@
+.mask {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  z-index: 1999;
+}
+
+.box {
+  display: inline-block;
+  max-width: 85%;
+  min-width: 95px;
+  padding: 9px 15px;
+  box-sizing: border-box;
+  text-align: center;
+  word-break: break-all;
+  white-space: pre-wrap;
+  font-size: 0;
+  color: #fff;
+  background-color: rgba(58, 58, 58, 0.9);
+  border-radius: 3px;
+  opacity: 0;
+  transform: scale(0.9);
+  backface-visibility: hidden;
+  transition: opacity 300ms, transform 300ms;
+}
+
+.enter {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.exit {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.message {
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.wrapper {
+  margin: 0 auto 7px;
+  width: 36px;
+  height: 36px;
+}
+
+.loading {
+  animation: loading 1s linear infinite;
+}
+
+@keyframes loading {
+  100% {
+    transform: rotate(360deg);
+  }
+}

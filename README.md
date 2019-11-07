@@ -2,30 +2,32 @@
 
 [![npm version](https://img.shields.io/npm/v/light-toast.svg?style=flat-square)](https://www.npmjs.com/package/light-toast)
 
-A light-weight React toast component with extremely easy API. [Online Demo](https://xinkule.github.io/light-toast/)
+A light-weight React toast component with extremely easy API and 0 dependency. [Online Demo](https://xinkule.github.io/light-toast/)
 
 ## Installation
 
 ```sh
-npm install light-toast --save
+yarn add light-toast --save
 ```
+
+Version `0.2.0` and above require React hooks support, please use with caution。
 
 ## Usage
 
 ```js
 import Toast from 'light-toast';
 
-class Button extends React.Component {
-  handleClick = () => {
-    Toast.info('message...', 3000, () => {
-      // do something after the toast disappears
-    });
-  };
-
-  render() {
-    return <div onClick={this.handleClick}>btn</div>;
-  }
-}
+const Button = () => (
+  <button
+    onClick={() => {
+      Toast.info('message...', 3000, () => {
+        // do something after the toast disappears
+      });
+    }}
+  >
+    click me
+  </button>
+);
 ```
 
 ## API

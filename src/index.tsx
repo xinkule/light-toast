@@ -1,135 +1,86 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Animation, Option, Type } from './PropsType';
-import Toast from './Toast';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Type, NoArgsReturnVoidFunction } from './types';
+import eventManager from './event-manager';
+import Toast from './toast';
 
-if (typeof window !== 'undefined') {
-  const styleSheet = document.createElement('style');
-  styleSheet.type = 'text/css';
-  styleSheet.innerHTML = `
-    .light-toast-mask {
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-align-items: center;
-      align-items: center;
-      -webkit-box-pack: center;
-      justify-content: center;
-      background: transparent;
-      z-index: 1999;
-    }
-
-    .light-toast-message {
-      display: inline-block;
-      max-width: 80%;
-      min-width: 95px;
-      line-height: 1.5;
-      padding: 9px 15px;
-      box-sizing: border-box;
-      text-align: center;
-      word-break: break-all;
-      font-size: 14px;
-      color: #fff;
-      background-color: rgba(58, 58, 58, 0.9);
-      border-radius: 3px;
-      opacity: 0;
-    }
-
-    .light-toast-message.icon {
-      padding: 15px;
-      border-radius: 5px;
-    }
-
-    .light-toast-icon-wrapper {
-      margin: 0 auto 10px;
-      width: 36px;
-      height: 36px;
-    }
-
-    .light-toast-loading {
-      display: inline-block;
-      width: 30px;
-      height: 30px;
-      border: 2px solid #ccc;
-      border-left-color: #108ee9;
-      border-radius: 50%;
-      -webkit-animation: loading 1s linear infinite;
-      animation: loading 1s linear infinite;
-    }
-
-    @-webkit-keyframes loading {
-      100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-      }
-    }
-  
-    @keyframes loading {
-      100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-      }
-    }`;
-  document.head!.appendChild(styleSheet);
+interface Message {
+  type: Type;
+  content: string;
+  duration?: number;
+  onClose?: NoArgsReturnVoidFunction;
 }
 
-let toastInstance: Toast | null = null;
+// save messages in a queue, only remove it when component lifecycle ends
+const messages: Message[] = [];
 
-function notice(type: Type, { content, duration, onClose }: Option) {
-  if (toastInstance) {
-    toastInstance.fade(Animation.Out, () => {
-      toastInstance!.props.onClose();
-      render(onClose);
-    });
-  } else {
-    render(onClose);
+eventManager.subscribe('popmessage', (): void => {
+  const { type, content, duration, onClose } = messages[0];
+  const container = document.createElement('div');
+  document.body.appendChild(container);
+  ReactDOM.render(
+    <Toast
+      type={type}
+      content={content}
+      duration={duration}
+      onClose={(): void => {
+        ReactDOM.unmountComponentAtNode(container);
+        document.body.removeChild(container);
+        onClose && onClose();
+        messages.shift();
+        if (messages.length > 0) {
+          eventManager.publish('popmessage');
+        }
+      }}
+    ></Toast>,
+    container
+  );
+});
+
+function notice(
+  type: Type,
+  content: string,
+  duration?: number,
+  onClose?: NoArgsReturnVoidFunction
+): void {
+  messages.push({ type, content, duration, onClose });
+  if (messages.length === 1) {
+    eventManager.publish('popmessage');
   }
-
-  function render(callback?: () => void) {
-    const container = document.createElement('div');
-    document.body.appendChild(container);
-    const component = (
-      <Toast
-        type={type}
-        content={content}
-        duration={duration}
-        onClose={() => {
-          ReactDOM.unmountComponentAtNode(container);
-          document.body.removeChild(container);
-          if (callback) {
-            callback();
-          }
-        }}
-        ref={ref => {
-          toastInstance = ref;
-        }}
-      />
-    );
-    ReactDOM.render(component, container);
+  // if current message is loading, then we should unmount it to proceed
+  if (messages.length > 1 && messages[0].type === 'loading') {
+    eventManager.publish('exit');
   }
 }
 
 export default {
-  info(content: string, duration?: number, onClose?: () => void) {
-    notice(Type.Info, { content, duration, onClose });
+  info(
+    content: string,
+    duration?: number,
+    onClose?: NoArgsReturnVoidFunction
+  ): void {
+    notice('info', content, duration, onClose);
   },
-  success(content: string, duration?: number, onClose?: () => void) {
-    notice(Type.Success, { content, duration, onClose });
+  success(
+    content: string,
+    duration?: number,
+    onClose?: NoArgsReturnVoidFunction
+  ): void {
+    notice('success', content, duration, onClose);
   },
-  fail(content: string, duration?: number, onClose?: () => void) {
-    notice(Type.Fail, { content, duration, onClose });
+  fail(
+    content: string,
+    duration?: number,
+    onClose?: NoArgsReturnVoidFunction
+  ): void {
+    notice('fail', content, duration, onClose);
   },
-  loading(content: string, onClose?: () => void) {
-    notice(Type.Loading, { content, onClose });
+  loading(content: string, onClose?: NoArgsReturnVoidFunction): void {
+    notice('loading', content, 0, onClose);
   },
-  hide() {
-    if (toastInstance) {
-      toastInstance.fade(Animation.Out, toastInstance.props.onClose);
-      toastInstance = null;
+  hide(): void {
+    if (messages.length > 0) {
+      eventManager.publish('exit');
     }
   },
 };
