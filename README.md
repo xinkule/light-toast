@@ -10,7 +10,7 @@ A light-weight React toast component with extremely easy API and 0 dependency. [
 yarn add light-toast --save
 ```
 
-Version `0.2.0` and above require React hooks support, please use with caution。
+Version `0.2.0` and above require React hooks support, please use with caution.
 
 ## Usage
 

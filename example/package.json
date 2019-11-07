@@ -2,6 +2,7 @@
   "name": "example",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/light-toast",
   "dependencies": {
     "light-toast": "link:..",
     "react": "^16.8.6",
