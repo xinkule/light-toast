@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b5fd1b96635dd9f4efaba87e54314562",
+    "revision": "a65a348d2c46192309183a92ddf32f81",
     "url": "/light-toast/index.html"
   },
   {
-    "revision": "b35151f0cb8d4d4a34a7",
+    "revision": "d2582159d6fed7a6de94",
     "url": "/light-toast/static/css/main.ed6284ef.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/light-toast/static/js/2.0bafa493.chunk.js"
   },
   {
-    "revision": "b35151f0cb8d4d4a34a7",
-    "url": "/light-toast/static/js/main.599f47f0.chunk.js"
+    "revision": "d2582159d6fed7a6de94",
+    "url": "/light-toast/static/js/main.39df444d.chunk.js"
   },
   {
     "revision": "7b5a4ec4403601185065",
