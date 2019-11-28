@@ -29,6 +29,7 @@ export default {
     postcss({
       modules: true,
       plugins: [autoprefixer({ flexbox: 'no-2009' })],
+      minimize: { preset: 'default' },
     }),
     url(),
     svgr(),
