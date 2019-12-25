@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Type, NoArgsReturnVoidFunction } from './types';
 import Icon from './icon';
 import eventManager from './event-manager';
@@ -32,12 +32,17 @@ const Toast = ({
   onClose,
 }: Props): React.ReactElement => {
   const [classes, setClasses] = useState(styles.box);
+  const ref = useRef<HTMLDivElement>(null);
 
   function exit(): void {
     setClasses((): string => `${styles.box} ${styles.exit}`);
   }
 
   useEffect((): NoArgsReturnVoidFunction => {
+    // force a repaint
+    /* eslint-disable no-unused-expressions */
+    ref.current && ref.current.scrollTop;
+    /* eslint-disable no-unused-expressions */
     setClasses((prev): string => `${prev} ${styles.enter}`);
     const key = eventManager.subscribe('exit', exit);
 
@@ -67,6 +72,7 @@ const Toast = ({
             onClose();
           }
         }}
+        ref={ref}
       >
         {type !== 'info' && (
           <div

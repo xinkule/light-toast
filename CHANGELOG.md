@@ -1,3 +1,7 @@
+## 0.2.3
+
+- fix issues when sometimes css transition doesn't trigger
+
 ## 0.2.2
 
 - minimize css
