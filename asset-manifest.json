@@ -1,15 +1,22 @@
 {
   "files": {
     "main.css": "/light-toast/static/css/main.ed6284ef.chunk.css",
-    "main.js": "/light-toast/static/js/main.e47c220c.chunk.js",
-    "main.js.map": "/light-toast/static/js/main.e47c220c.chunk.js.map",
-    "runtime~main.js": "/light-toast/static/js/runtime~main.470648f8.js",
-    "runtime~main.js.map": "/light-toast/static/js/runtime~main.470648f8.js.map",
-    "static/js/2.0bafa493.chunk.js": "/light-toast/static/js/2.0bafa493.chunk.js",
-    "static/js/2.0bafa493.chunk.js.map": "/light-toast/static/js/2.0bafa493.chunk.js.map",
+    "main.js": "/light-toast/static/js/main.1a2185b0.chunk.js",
+    "main.js.map": "/light-toast/static/js/main.1a2185b0.chunk.js.map",
+    "runtime-main.js": "/light-toast/static/js/runtime-main.42de30f4.js",
+    "runtime-main.js.map": "/light-toast/static/js/runtime-main.42de30f4.js.map",
+    "static/js/2.0b595fad.chunk.js": "/light-toast/static/js/2.0b595fad.chunk.js",
+    "static/js/2.0b595fad.chunk.js.map": "/light-toast/static/js/2.0b595fad.chunk.js.map",
     "index.html": "/light-toast/index.html",
-    "precache-manifest.8935d4d6b9b4efc25bc76e33bcf53700.js": "/light-toast/precache-manifest.8935d4d6b9b4efc25bc76e33bcf53700.js",
+    "precache-manifest.acebd28ff2ad6b15ae4967494494608f.js": "/light-toast/precache-manifest.acebd28ff2ad6b15ae4967494494608f.js",
     "service-worker.js": "/light-toast/service-worker.js",
-    "static/css/main.ed6284ef.chunk.css.map": "/light-toast/static/css/main.ed6284ef.chunk.css.map"
-  }
+    "static/css/main.ed6284ef.chunk.css.map": "/light-toast/static/css/main.ed6284ef.chunk.css.map",
+    "static/js/2.0b595fad.chunk.js.LICENSE.txt": "/light-toast/static/js/2.0b595fad.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.42de30f4.js",
+    "static/js/2.0b595fad.chunk.js",
+    "static/css/main.ed6284ef.chunk.css",
+    "static/js/main.1a2185b0.chunk.js"
+  ]
 }
