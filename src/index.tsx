@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import eventManager from 'micro-event-manager';
 import { Type, NoArgsReturnVoidFunction } from './types';
-import eventManager from './event-manager';
 import Toast from './toast';
 
 interface Message {

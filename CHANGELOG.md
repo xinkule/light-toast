@@ -1,3 +1,7 @@
+## 0.3.0
+
+- extract event manager to an independent library
+
 ## 0.2.3
 
 - fix issues when sometimes css transition doesn't trigger
