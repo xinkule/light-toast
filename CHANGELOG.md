@@ -1,3 +1,7 @@
+## 0.3.1
+
+- update dependency
+
 ## 0.3.0
 
 - extract event manager to an independent library

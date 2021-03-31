@@ -3169,10 +3169,10 @@ merge2@^1.2.3:
   resolved "https://registry.yarnpkg.com/merge2/-/merge2-1.2.4.tgz#c9269589e6885a60cf80605d9522d4b67ca646e3"
   integrity sha512-FYE8xI+6pjFOhokZu0We3S5NKCirLbCzSh2Usf3qEyr4X8U+0jNg9P8RZ4qz+V2UoECLVwSyzU3LxXBaLGtD3A==
 
-micro-event-manager@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/micro-event-manager/-/micro-event-manager-0.0.1.tgz#1473a7c24b6f8367348e6785b095656e884e3b1c"
-  integrity sha512-Etz6x7utyupRiSD3qTVz/8NjePitxFDVUo6VvnqtoZocGYGpkmW3YMbJi18LsO1B+HTNW08rocaPdpR+gFU/CA==
+micro-event-manager@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/micro-event-manager/-/micro-event-manager-0.0.2.tgz#a61883f3cc3463a5df1a118efbf0597a2619b051"
+  integrity sha512-iX3N8tZtrB+XBOJM/wpvg1KdobR7GnfSKRZsxFLzlCSXq5lleZGSz93olVEaJjbA42NCF2XvWRTNFdqSLWhIuQ==
 
 micromatch@^4.0.2:
   version "4.0.2"
