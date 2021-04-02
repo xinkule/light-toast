@@ -1,6 +1,6 @@
 {
   "name": "light-toast",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A light-weight react toast component built for mobile web app",
   "author": "Albert Zhong <ccnualbertzhong@163.com> (https://github.com/xinkule)",
   "license": "MIT",
@@ -23,9 +23,7 @@
   "homepage": "https://xinkule.github.io/light-toast/",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "cross-env CI=1 react-scripts-ts test --env=jsdom",
-    "test:watch": "react-scripts-ts test --env=jsdom",
-    "build": "rollup -c",
+    "build": "rm -rf dist && rollup -c",
     "start": "rollup -c -w",
     "prepare": "yarn run build",
     "predeploy": "cd example && yarn install && yarn run build",
@@ -36,7 +34,7 @@
     "dist/"
   ],
   "dependencies": {
-    "micro-event-manager": "^0.0.2"
+    "micro-event-manager": "^0.0.3"
   },
   "peerDependencies": {
     "react": "^16.8.6",
