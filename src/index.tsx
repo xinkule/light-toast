@@ -1,41 +1,37 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import eventManager from 'micro-event-manager';
-import { Type, NoArgsReturnVoidFunction } from './types';
+import { Type, NoArgsReturnVoidFunction, Message } from './types';
 import Toast from './toast';
+import Queue from './queue';
 
-interface Message {
-  type: Type;
-  content: string;
-  duration?: number;
-  onClose?: NoArgsReturnVoidFunction;
-}
+const queue = new Queue();
 
-// save messages in a queue, only remove it when component lifecycle ends
-const messages: Message[] = [];
-
-eventManager.subscribe('popmessage', (): void => {
-  const { type, content, duration, onClose } = messages[0];
-  const container = document.createElement('div');
-  document.body.appendChild(container);
-  ReactDOM.render(
-    <Toast
-      type={type}
-      content={content}
-      duration={duration}
-      onClose={(): void => {
-        ReactDOM.unmountComponentAtNode(container);
-        document.body.removeChild(container);
-        onClose && onClose();
-        messages.shift();
-        if (messages.length > 0) {
-          eventManager.publish('popmessage');
-        }
-      }}
-    ></Toast>,
-    container
-  );
-});
+eventManager.subscribe(
+  'lt#popmessage',
+  ({ id, type, content, duration, onClose }: Message) => {
+    const container = document.createElement('div');
+    document.body.appendChild(container);
+    ReactDOM.render(
+      <Toast
+        id={id}
+        type={type}
+        content={content}
+        duration={duration}
+        onClose={(): void => {
+          ReactDOM.unmountComponentAtNode(container);
+          document.body.removeChild(container);
+          onClose && onClose();
+          queue.shift();
+          if (queue.length > 0) {
+            eventManager.publish('lt#popmessage', queue.getFirstMessage());
+          }
+        }}
+      />,
+      container
+    );
+  }
+);
 
 function notice(
   type: Type,
@@ -43,13 +39,18 @@ function notice(
   duration?: number,
   onClose?: NoArgsReturnVoidFunction
 ): void {
-  messages.push({ type, content, duration, onClose });
-  if (messages.length === 1) {
-    eventManager.publish('popmessage');
+  queue.push({ type, content, duration, onClose });
+  // toast right now if there is only one message in queue
+  if (queue.length === 1) {
+    eventManager.publish('lt#popmessage', queue.getFirstMessage());
+    return;
   }
   // if current message is loading, then we should unmount it to proceed
-  if (messages.length > 1 && messages[0].type === 'loading') {
-    eventManager.publish('exit');
+  if (queue.length > 1) {
+    const message = queue.getFirstMessage();
+    if (message.type === 'loading') {
+      eventManager.publish('lt#exit', message.id);
+    }
   }
 }
 
@@ -79,8 +80,9 @@ export default {
     notice('loading', content, 0, onClose);
   },
   hide(): void {
-    if (messages.length > 0) {
-      eventManager.publish('exit');
+    // hide the first toast in the queue when executing the command
+    if (queue.length > 0) {
+      eventManager.publish('lt#exit', queue.getFirstMessage().id);
     }
   },
 };

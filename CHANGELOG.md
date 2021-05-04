@@ -1,3 +1,8 @@
+## 0.3.3
+
+- create queue class to manage messages
+- fix issues when call `Toast.hide()` right after `Toast.loading()`
+
 ## 0.3.2
 
 - update dependency

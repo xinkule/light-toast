@@ -1,60 +1,61 @@
 import React, { useEffect, useState, useRef } from 'react';
 import eventManager from 'micro-event-manager';
-import { Type, NoArgsReturnVoidFunction } from './types';
+import { Message, NoArgsReturnVoidFunction } from './types';
 import Icon from './icon';
 import styles from './style.css';
 
-let timerId = -1;
-
-function debounce(
-  callback: NoArgsReturnVoidFunction
-): NoArgsReturnVoidFunction {
-  let count = 0;
-  return (): void => {
-    if (count === 0) {
-      callback();
-      count++;
-    }
-  };
+interface Props extends Message {
+  onClose: NoArgsReturnVoidFunction;
 }
 
-type Props = {
-  type: Type;
-  content: string;
-  duration?: number;
-  onClose: NoArgsReturnVoidFunction;
-};
-
-const Toast = ({
+const Toast: React.FC<Props> = ({
+  id,
   type,
   content,
   duration = 3000,
   onClose,
-}: Props): React.ReactElement => {
+}) => {
   const [classes, setClasses] = useState(styles.box);
+  const [entered, setEntered] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   function exit(): void {
-    setClasses((): string => `${styles.box} ${styles.exit}`);
+    setClasses(() => `${styles.box} ${styles.exit}`);
   }
 
-  useEffect((): NoArgsReturnVoidFunction => {
+  useEffect(() => {
     // force a repaint
     /* eslint-disable no-unused-expressions */
     ref.current && ref.current.scrollTop;
     /* eslint-disable no-unused-expressions */
-    setClasses((prev): string => `${prev} ${styles.enter}`);
-    const key = eventManager.subscribe('exit', exit);
-
-    return (): void => {
-      eventManager.unSubscribe('exit', key);
-      window.clearTimeout(timerId); // in case toast unmount before reaching the timeout
-    };
+    setClasses(prev => `${prev} ${styles.enter}`);
   }, []);
 
-  const scheduleExit = debounce((): void => {
-    timerId = window.setTimeout(exit, duration);
-  });
+  useEffect(() => {
+    let key = -1;
+    let timerId = -1;
+
+    if (entered) {
+      // component mounting is async, there might be an exit command before a toast mounts
+      // so we should make sure to trigger the published exit event
+      key = eventManager.ensureTriggeredAndSubscribe(
+        'lt#exit',
+        (messageId: number) => {
+          if (messageId === id) {
+            exit();
+          }
+        }
+      );
+      if (duration !== 0) {
+        timerId = window.setTimeout(exit, duration);
+      }
+    }
+
+    return (): void => {
+      eventManager.unSubscribe('lt#exit', key);
+      window.clearTimeout(timerId);
+    };
+  }, [id, duration, entered]);
 
   return (
     <div className={styles.mask}>
@@ -63,8 +64,8 @@ const Toast = ({
         style={type === 'info' ? undefined : { padding: 15, borderRadius: 5 }}
         onTransitionEnd={(): void => {
           // enter phase
-          if (~classes.indexOf(styles.enter) && duration !== 0) {
-            scheduleExit();
+          if (~classes.indexOf(styles.enter)) {
+            setEntered(true);
           }
 
           // exit phase
