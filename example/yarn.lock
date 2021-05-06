@@ -6323,9 +6323,8 @@ levn@^0.3.0, levn@~0.3.0:
     type-check "~0.3.2"
 
 "light-toast@link:..":
-  version "0.3.0"
-  dependencies:
-    micro-event-manager "^0.0.1"
+  version "0.0.0"
+  uid ""
 
 lines-and-columns@^1.1.6:
   version "1.1.6"
@@ -6596,10 +6595,10 @@ methods@~1.1.2:
   resolved "https://registry.yarnpkg.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
   integrity sha1-VSmk1nZUE07cxSZmVoNbD4Ua/O4=
 
-micro-event-manager@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/micro-event-manager/-/micro-event-manager-0.0.1.tgz#1473a7c24b6f8367348e6785b095656e884e3b1c"
-  integrity sha512-Etz6x7utyupRiSD3qTVz/8NjePitxFDVUo6VvnqtoZocGYGpkmW3YMbJi18LsO1B+HTNW08rocaPdpR+gFU/CA==
+micro-event-manager@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/micro-event-manager/-/micro-event-manager-0.0.3.tgz#be6723cdcd983c9995d4ec268f6c80746ac1ce39"
+  integrity sha512-lM+ykdXIxKmmpkyV5mFs8zNcOTNxN5SP/9qSGNoigScUc23wQIBCiISuVd3qWSEwaX/w9rd1ExekXjHF0pWntQ==
 
 microevent.ts@~0.1.1:
   version "0.1.1"
