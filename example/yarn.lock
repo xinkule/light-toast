@@ -6715,8 +6715,9 @@ levn@~0.3.0:
     type-check "~0.3.2"
 
 "light-toast@link:..":
-  version "0.0.0"
-  uid ""
+  version "0.3.3"
+  dependencies:
+    micro-event-manager "^0.0.3"
 
 lines-and-columns@^1.1.6:
   version "1.1.6"
