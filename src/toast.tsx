@@ -25,9 +25,8 @@ const Toast: React.FC<Props> = ({
 
   useEffect(() => {
     // force a repaint
-    /* eslint-disable no-unused-expressions */
+    // eslint-disable-next-line
     ref.current && ref.current.scrollTop;
-    /* eslint-disable no-unused-expressions */
     setClasses(prev => `${prev} ${styles.enter}`);
   }, []);
 

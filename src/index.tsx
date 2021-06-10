@@ -54,7 +54,7 @@ function notice(
   }
 }
 
-export default {
+const index = {
   info(
     content: string,
     duration?: number,
@@ -86,3 +86,5 @@ export default {
     }
   },
 };
+
+export default index;
