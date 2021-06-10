@@ -1,3 +1,9 @@
+## 0.3.4
+
+- update build dependencies
+- update react peer dependency version
+- use inline svg elements
+
 ## 0.3.3
 
 - create queue class to manage messages
