@@ -1,4 +1,6 @@
-export type Type = 'info' | 'success' | 'fail' | 'loading';
+export type TypeWithIcon = 'success' | 'fail' | 'loading';
+
+export type Type = 'info' | TypeWithIcon;
 
 export type NoArgsReturnVoidFunction = () => void;
 
