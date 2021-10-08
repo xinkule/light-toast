@@ -1,6 +1,6 @@
 {
   "name": "light-toast",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "A light-weight react toast component built for mobile web app",
   "author": "Albert Zhong <ccnualbertzhong@163.com> (https://github.com/xinkule)",
   "license": "MIT",
@@ -34,7 +34,7 @@
     "dist/"
   ],
   "dependencies": {
-    "micro-event-manager": "^0.0.3"
+    "micro-event-manager": "^1.0.0"
   },
   "peerDependencies": {
     "react": ">=16.8.6",

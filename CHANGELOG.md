@@ -1,3 +1,7 @@
+## 0.3.5
+
+- update deps micro-event-manager
+
 ## 0.3.4
 
 - update build dependencies

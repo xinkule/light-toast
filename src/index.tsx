@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import eventManager from 'micro-event-manager';
 import { Type, NoArgsReturnVoidFunction, Message } from './types';
 import Toast from './toast';
 import Queue from './queue';
+import eventManager from './event';
 
 const queue = new Queue();
 

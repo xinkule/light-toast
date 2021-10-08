@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
-import eventManager from 'micro-event-manager';
 import { Message, NoArgsReturnVoidFunction } from './types';
 import Icon from './icon';
+import eventManager from './event';
 import styles from './style.css';
 
 interface Props extends Message {
