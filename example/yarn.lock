@@ -2438,9 +2438,9 @@ async-limiter@~1.0.0:
   integrity sha512-csOlWGAcRFJaI6m+F2WKdnMKr4HhdhFVBk0H/QbJFMCr+uO2kwohwXQPxw/9OCxp05r5ghVBFSyioixx3gfkNQ==
 
 async@^2.6.2:
-  version "2.6.3"
-  resolved "https://registry.yarnpkg.com/async/-/async-2.6.3.tgz#d72625e2344a3656e3a3ad4fa749fa83299d82ff"
-  integrity sha512-zflvls11DCy+dQWzTW2dzuilv8Z5X/pjfmZOWba6TNIVDm+2UDaJmXSOXlasHKfNBs8oo3M0aT50fDEWfKZjXg==
+  version "2.6.4"
+  resolved "https://registry.yarnpkg.com/async/-/async-2.6.4.tgz#706b7ff6084664cd7eae713f6f965433b5504221"
+  integrity sha512-mzo5dfJYwAn29PeiJ0zvwTo04zj8HDJj0Mn8TD7sno7q12prdbnasKJHhkm2c1LgrhlJ0teaea8860oxi51mGA==
   dependencies:
     lodash "^4.17.14"
 
@@ -6715,8 +6715,9 @@ levn@~0.3.0:
     type-check "~0.3.2"
 
 "light-toast@link:..":
-  version "0.0.0"
-  uid ""
+  version "0.3.5"
+  dependencies:
+    micro-event-manager "^1.0.0"
 
 lines-and-columns@^1.1.6:
   version "1.1.6"
@@ -6977,10 +6978,10 @@ methods@~1.1.2:
   resolved "https://registry.yarnpkg.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
   integrity sha1-VSmk1nZUE07cxSZmVoNbD4Ua/O4=
 
-micro-event-manager@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/micro-event-manager/-/micro-event-manager-0.0.3.tgz#be6723cdcd983c9995d4ec268f6c80746ac1ce39"
-  integrity sha512-lM+ykdXIxKmmpkyV5mFs8zNcOTNxN5SP/9qSGNoigScUc23wQIBCiISuVd3qWSEwaX/w9rd1ExekXjHF0pWntQ==
+micro-event-manager@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/micro-event-manager/-/micro-event-manager-1.0.0.tgz#5ef895d9d164e2efc253e661b6db42b8099218f3"
+  integrity sha512-nI4ifcPWlcREvueypHbKvmjDIcTpsOzBlTa1TxscK4r5a4GwgWTcJbwh49Sy6eY9otr0rxK4fdhk4Ir0AT75ZA==
 
 microevent.ts@~0.1.1:
   version "0.1.1"
