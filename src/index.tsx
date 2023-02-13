@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { Type, NoArgsReturnVoidFunction, Message } from './types';
 import Toast from './toast';
 import Queue from './queue';
@@ -12,14 +12,15 @@ eventManager.subscribe(
   ({ id, type, content, duration, onClose }: Message) => {
     const container = document.createElement('div');
     document.body.appendChild(container);
-    ReactDOM.render(
+    let root = ReactDOM.createRoot(container);
+    root.render(
       <Toast
         id={id}
         type={type}
         content={content}
         duration={duration}
         onClose={(): void => {
-          ReactDOM.unmountComponentAtNode(container);
+          root.unmount();
           document.body.removeChild(container);
           onClose && onClose();
           queue.shift();
@@ -27,8 +28,7 @@ eventManager.subscribe(
             eventManager.publish('lt#popmessage', queue.getFirstMessage());
           }
         }}
-      />,
-      container
+      />
     );
   }
 );
